@@ -91,4 +91,9 @@ public class RemarkCommand extends Command {
         return index.equals(e.index)
                 && remark.equals(e.remark);
     }
+
+    @Override
+    public String toString() {
+        return getClass().getCanonicalName() + "{index=" + index + ", remark=" + remark + "}";
+    }
 }
