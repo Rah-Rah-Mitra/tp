@@ -164,4 +164,3 @@ This implementation completes the "Adding a Command" tutorial for CS2103 with:
 **Branch**: `tutorial-adding-command`  
 **Status**: Ready for push and PR  
 **Date**: October 1, 2025
-
