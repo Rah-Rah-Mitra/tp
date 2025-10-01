@@ -59,8 +59,8 @@ Welcome! This directory contains comprehensive documentation for the `remark` co
 ---
 
 ### 4. **CHECKLIST.md**
-**Purpose**: Final verification and submission guide  
-**Length**: 182 lines  
+**Purpose**: Final verification and submission guide
+**Length**: 182 lines
 **Contents**:
 - Complete implementation checklist
 - Commit organization verification
@@ -77,15 +77,35 @@ Welcome! This directory contains comprehensive documentation for the `remark` co
 
 ---
 
-## 🗂️ Document Organization
+### 5. **FORMATTING_GUIDE.md** 🎨 NEW
+**Purpose**: Code formatting and style configuration
+**Length**: 241 lines
+**Contents**:
+- Automatic formatting setup
+- VS Code settings explanation
+- EditorConfig documentation
+- Troubleshooting formatting issues
+- Recommended extensions
+- Testing procedures
+- Best practices for code style
 
+**When to use**:
+- Setting up development environment
+- Fixing checkstyle violations
+- Understanding auto-formatting
+- Resolving whitespace issues
+
+---
+
+## 🗂️ Document Organization
 ```
 Documentation/
 ├── ADDING_COMMAND_GUIDE.md      ← Implementation tutorial (START HERE)
 ├── COMMIT_SUMMARY.md            ← Commit history details
 ├── IMPLEMENTATION_SUMMARY.md    ← Project overview
 ├── CHECKLIST.md                 ← Final verification
-└── README_DOCS.md              ← This file (navigation guide)
+├── FORMATTING_GUIDE.md          ← Code formatting setup
+└── README_DOCS.md               ← This file (navigation guide)
 ```
 
 ## 🎯 Quick Start Guide
@@ -236,6 +256,7 @@ The implementation is complete and ready for:
 | Understand remark implementation | IMPLEMENTATION_SUMMARY.md |
 | Review commits | COMMIT_SUMMARY.md |
 | Submit PR | CHECKLIST.md |
+| Fix formatting issues | FORMATTING_GUIDE.md |
 | Navigate docs | README_DOCS.md (this file) |
 
 ---
