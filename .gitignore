@@ -26,3 +26,7 @@ docs/_markbind/logs/
 # Custom ignore files
 *.class
 *.old
+
+# Temporary files
+bin/
+*.tmp
