@@ -1,0 +1,79 @@
+{
+    // Gradle tasks for running and debugging the app.
+    // 1. "Gradle Run" - normal run
+    // 2. "Gradle Run Debug (foreground)" - starts run with JDWP; you attach manually (Attach config)
+    // 3. "Gradle Run Debug (background, port 5005)" - same but marked background so a compound can auto-attach
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Gradle Run",
+            "type": "shell",
+            "command": ".\\gradlew.bat",
+            "args": [
+                "run"
+            ],
+            "problemMatcher": [],
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        },
+        {
+            "label": "Gradle Run Debug (foreground)",
+            "type": "shell",
+            "command": ".\\gradlew.bat",
+            "args": [
+                "run",
+                "--debug-jvm"
+            ],
+            "problemMatcher": [],
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        },
+        {
+            // Background variant so a compound launch can proceed to attach once the JVM is listening.
+            "label": "Gradle Run Debug (background, port 5005)",
+            "type": "shell",
+            "command": ".\\gradlew.bat",
+            "args": [
+                "run",
+                "--debug-jvm"
+            ],
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                    "owner": "gradle-debug",
+                    "pattern": [
+                        {
+                            "regexp": ".*"
+                        }
+                    ],
+                    "background": {
+                        // Begin immediately; mark task 'ready' when JVM prints JDWP listening line.
+                        "activeOnStart": true,
+                        "beginsPattern": ".*", // first line
+                        "endsPattern": "Listening for transport dt_socket at address: 5005"
+                    }
+                }
+            ],
+            "windows": {
+                "command": ".\\gradlew.bat"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        }
+    ]
+}

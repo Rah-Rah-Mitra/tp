@@ -1,0 +1,34 @@
+{
+    // VS Code Java launch configurations for Gradle + JavaFX project.
+    // Direct Launch uses the compiled classes without needing Gradle to run the app task first.
+    // The Attach configs hook into a Gradle run started with --debug-jvm.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Attach after manually running:  .\\gradlew.bat run --debug-jvm
+            "type": "java",
+            "name": "Attach to Gradle Run (5005)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        },
+        {
+            // Template attach if you alter the debug port
+            "type": "java",
+            "name": "Attach (customize port)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Gradle Debug (auto-attach)",
+            // Uses background task that becomes 'ready' when JDWP is listening, then attaches.
+            "preLaunchTask": "Gradle Run Debug (background, port 5005)",
+            "configurations": [
+                "Attach to Gradle Run (5005)"
+            ]
+        }
+    ]
+}
