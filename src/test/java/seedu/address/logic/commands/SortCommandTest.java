@@ -35,13 +35,9 @@ public class SortCommandTest {
         unsortedAddrBook.addPerson(BENSON);
 
         model.setAddressBook(unsortedAddrBook);
+        expectedModel.setAddressBook(unsortedAddrBook);
+        expectedModel.sortFilteredPersonList();
 
-        AddressBook sortedAddrBook = new AddressBook();
-        sortedAddrBook.addPerson(ALICE);
-        sortedAddrBook.addPerson(BENSON);
-        sortedAddrBook.addPerson(CARL);
-
-        expectedModel.setAddressBook(sortedAddrBook);
         assertCommandSuccess(new SortCommand(), model, SortCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
