@@ -129,4 +129,23 @@ public class ModelManagerTest {
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
+
+    @Test
+    public void sortFilteredPersonList_doesNotModifyAddressBook() {
+        AddressBook addressBook = new AddressBookBuilder().withPerson(BENSON).withPerson(ALICE).build();
+        ModelManager modelManager = new ModelManager(addressBook, new UserPrefs());
+
+        // Store the original AddressBook state
+        ReadOnlyAddressBook originalAddressBook = new AddressBook(modelManager.getAddressBook());
+
+        // Sort the filtered person list
+        modelManager.sortFilteredPersonList();
+
+        // Verify that the AddressBook itself hasn't changed
+        assertEquals(originalAddressBook, modelManager.getAddressBook());
+
+        // Verify that the display order is sorted
+        assertEquals(ALICE, modelManager.getFilteredPersonList().get(0));
+        assertEquals(BENSON, modelManager.getFilteredPersonList().get(1));
+    }
 }
