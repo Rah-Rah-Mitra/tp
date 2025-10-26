@@ -63,7 +63,6 @@ class JsonAdaptedPerson {
         timezone = source.getTimezone().tzOffset;
     }
 
-    //todo ck: If exception was thrown for just 1 person, whole data file will not load
     /**
      * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
      *
@@ -109,7 +108,6 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        //todo ck: consider func extraction?
         final Timezone modelTimezone;
         //If user deleted the value from savefile, still treat as valid and set NO_TIMEZONE value
         if (timezone == null) {
