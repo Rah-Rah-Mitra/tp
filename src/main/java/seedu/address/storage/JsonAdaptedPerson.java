@@ -154,11 +154,10 @@ class JsonAdaptedPerson {
         if (timezone == null) {
             return new Timezone(Timezone.NO_TIMEZONE);
         }
-        //Check value, if users choose to set the NO_TIMEZONE value themselves, it is technically valid
+        //Check value; if users set the NO_TIMEZONE value themselves, it is technically valid
         if (!Timezone.isValidTz(timezone)) {
             throw new IllegalValueException(Timezone.MESSAGE_CONSTRAINTS);
         }
-        //Restore tz value
         return new Timezone(timezone);
     }
 
