@@ -63,7 +63,6 @@ class JsonAdaptedPerson {
         timezone = source.getTimezone().tzOffset;
     }
 
-    //todo ck: If exception was thrown for just 1 person, whole data file will not load
     /**
      * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
      *
@@ -75,54 +74,91 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
+        final Name modelName = validateAndCreateName();
+        final Phone modelPhone = validateAndCreatePhone();
+        final Email modelEmail = validateAndCreateEmail();
+        final Address modelAddress = validateAndCreateAddress();
+        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Timezone modelTimezone = validateAndCreateTimezone();
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelTimezone);
+    }
+
+    /**
+     * Validates and creates a Name object.
+     *
+     * @throws IllegalValueException if name is null or invalid.
+     */
+    private Name validateAndCreateName() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        return new Name(name);
+    }
 
+    /**
+     * Validates and creates a Phone object.
+     *
+     * @throws IllegalValueException if phone is null or invalid.
+     */
+    private Phone validateAndCreatePhone() throws IllegalValueException {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        return new Phone(phone);
+    }
 
+    /**
+     * Validates and creates an Email object.
+     *
+     * @throws IllegalValueException if email is null or invalid.
+     */
+    private Email validateAndCreateEmail() throws IllegalValueException {
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        return new Email(email);
+    }
 
+    /**
+     * Validates and creates an Address object.
+     *
+     * @throws IllegalValueException if address is null or invalid.
+     */
+    private Address validateAndCreateAddress() throws IllegalValueException {
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        return new Address(address);
+    }
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-
-        //todo ck: consider func extraction?
-        final Timezone modelTimezone;
+    /**
+     * Validates and creates a Timezone object.
+     *
+     * @throws IllegalValueException if timezone is invalid.
+     */
+    private Timezone validateAndCreateTimezone() throws IllegalValueException {
         //If user deleted the value from savefile, still treat as valid and set NO_TIMEZONE value
         if (timezone == null) {
-            modelTimezone = new Timezone(Timezone.NO_TIMEZONE);
-        } else if (!Timezone.isValidTz(timezone)) {
-            //Check value, if users choose to set the NO_TIMEZONE value themselves, it is technically valid
-            throw new IllegalValueException(Timezone.MESSAGE_CONSTRAINTS);
-        } else {
-            //Restore tz value
-            modelTimezone = new Timezone(timezone);
+            return new Timezone(Timezone.NO_TIMEZONE);
         }
-
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelTimezone);
+        //Check value; if users set the NO_TIMEZONE value themselves, it is technically valid
+        if (!Timezone.isValidTz(timezone)) {
+            throw new IllegalValueException(Timezone.MESSAGE_CONSTRAINTS);
+        }
+        return new Timezone(timezone);
     }
 
 }

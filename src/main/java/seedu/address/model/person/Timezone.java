@@ -57,8 +57,6 @@ public class Timezone {
             return "No Timezone Specified";
         }
 
-        //todo ck: for now keep as raw TZ value
-        /*String.format("%.2f", tzOffset)*/
         return "UTC" + ((tzOffset >= 0) ? "+" : "") + tzOffset;
     }
 
