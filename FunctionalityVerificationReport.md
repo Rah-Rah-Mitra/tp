@@ -77,9 +77,11 @@ Timezone timezone = ParserUtil.parseTimezone(argMultimap.getValue(PREFIX_TIMEZON
 **Recommendation:**
 Add comprehensive documentation for the Timezone feature including:
 1. Purpose and use case
-2. Command syntax (`tz/OFFSET` where OFFSET is -24.0 to +24.0)
+2. Command syntax (`tz/OFFSET` where OFFSET is a valid UTC offset, typically between -12.0 and +14.0)
 3. Model diagram updates
 4. Example usage in manual testing section
+
+**Note:** The code implementation allows -24.0 to +24.0 range, which is broader than standard UTC offsets (typically -12 to +14). This should be reviewed for correctness.
 
 ---
 
@@ -111,14 +113,17 @@ public CommandResult execute(Model model) {
 **Actual Status:**
 Upon closer inspection, the sort functionality IS implemented:
 - `Model.sortFilteredPersonList()` exists and works
-- Sorts persons by name (first character)
+- Sorts persons alphabetically by their full name (lexicographic ordering)
 - Returns success message
 
 **Issues Found:**
 1. Conflicting constant `MESSAGE_NOT_IMPLEMENTED_YET` exists but is not used
 2. DeveloperGuide mentions this in User Stories (Priority `*` - Low priority: "As a normal user, I want to sort my contacts")
 3. UserGuide does NOT document the `sort` command
-4. TODO comment in code suggests incomplete implementation
+4. TODO comment in code suggests incomplete implementation (mentions adding sort parameters)
+
+**Implementation Details:**
+The sort functionality uses `Comparator.comparing(person -> String.valueOf(person.getName()))` which performs lexicographic (alphabetical) sorting by the full name string.
 
 **Impact:**
 - Users unaware of sort functionality
@@ -157,9 +162,9 @@ The DeveloperGuide contains extensive documentation for an Undo/Redo feature und
 **Verification:**
 ```bash
 # No undo/redo commands found
-$ grep -r "class UndoCommand" src/
-$ grep -r "class RedoCommand" src/
-$ grep -r "VersionedAddressBook" src/
+grep -r "class UndoCommand" src/
+grep -r "class RedoCommand" src/
+grep -r "VersionedAddressBook" src/
 # All return no results
 ```
 
@@ -400,7 +405,7 @@ public static final String MESSAGE_EXCESSIVE_TAGS = "Error: You can only filter 
 
 ### 5.2 Command Summary Issues
 
-**UserGuide Command Summary (Section at end):**
+**UserGuide Command Summary (Section: "Command summary" near end of document):**
 - Lists: Add, Clear, Delete, Edit, Find, List, Help
 - Missing: `filter`, `sort`, `exit`
 
@@ -500,6 +505,8 @@ public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Sort command not imple
 **Incomplete Methods:**
 ```java
 // From Timezone.java (line 50-52)
+// This method appears intended to calculate timezone offset between two timezones
+// but currently returns a placeholder string
 public String getTzOffset(Timezone other) {
     return "NOT IMPLEMENTED";
 }
@@ -656,5 +663,5 @@ This verification was conducted through:
 ---
 
 **Report Generated:** 2025-10-26  
-**Prepared By:** Automated Code Inspection System  
+**Verification Method:** Manual code inspection and documentation analysis  
 **Report Version:** 1.0
