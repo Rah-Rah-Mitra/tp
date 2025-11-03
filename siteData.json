@@ -39,7 +39,7 @@
       "src": "DeveloperGuide.md",
       "title": "Developer Guide",
       "headings": {
-        "ab-3-developer-guide": "AB-3 Developer Guide",
+        "customer-relation-book-developer-guide": "Customer Relation Book Developer Guide",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -65,7 +65,17 @@
         "glossary": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
+        "viewing-help": "Viewing help",
+        "adding-a-person": "Adding a person",
+        "listing-all-persons": "Listing all persons",
+        "editing-a-person": "Editing a person",
         "deleting-a-person": "Deleting a person",
+        "finding-persons-by-name": "Finding persons by name",
+        "filtering-persons-by-tags": "Filtering persons by tags",
+        "sorting-persons": "Sorting persons",
+        "adding-or-editing-notes": "Adding or editing notes",
+        "clearing-all-entries": "Clearing all entries",
+        "command-history-navigation": "Command history navigation",
         "saving-data": "Saving data"
       },
       "headingKeywords": {}
@@ -110,7 +120,7 @@
       "src": "UserGuide.md",
       "title": "User Guide",
       "headings": {
-        "ab-3-user-guide": "AB-3 User Guide",
+        "customer-relation-book-user-guide": "Customer Relation Book User Guide",
         "quick-start": "Quick start",
         "features": "Features",
         "viewing-help-help": "Viewing help: help",
